@@ -8,6 +8,39 @@ const fs = require("fs");
 // ============================================================
 function getShiftDuration(startTime, endTime) {
     // TODO: Implement this function
+    function getShiftDuration(startTime, endTime) {
+  
+    function timeToSeconds(t) {
+        let [time, modifier] = t.trim().split(" "); // ["6:01:20", "am"]
+        let [hours, minutes, seconds] = time.split(":").map(Number);
+
+        if (modifier.toLowerCase() === "pm" && hours !== 12) hours += 12;
+        if (modifier.toLowerCase() === "am" && hours === 12) hours = 0;
+
+        return hours * 3600 + minutes * 60 + seconds;
+    }
+
+  
+    function secondsToTime(s) {
+        let hours = Math.floor(s / 3600);
+        s %= 3600;
+        let minutes = Math.floor(s / 60);
+        let seconds = s % 60;
+
+        
+        return `${hours}:${minutes.toString().padStart(2,"0")}:${seconds.toString().padStart(2,"0")}`;
+    }
+
+    let startSec = timeToSeconds(startTime);
+    let endSec = timeToSeconds(endTime);
+
+   
+    if (endSec < startSec) endSec += 24 * 3600;
+
+    let durationSec = endSec - startSec;
+
+    return secondsToTime(durationSec);
+}
 }
 
 // ============================================================
