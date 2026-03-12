@@ -160,7 +160,7 @@ function setBonus(textFile, driverID, date, newValue) {
     for (let i=0;i<lines.length;i++){
         let cols = lines[i].split(",");
         if (cols[0]===driverID && cols[2]===date){
-            cols[9] = newValue.toString();  // <-- use string
+            cols[9] = newValue.toString(); 
             lines[i] = cols.join(",");
             break;
         }
